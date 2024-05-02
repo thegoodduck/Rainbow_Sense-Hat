@@ -25,22 +25,12 @@ colors = [
     (64, 0, 255),   # Indigo
     (128, 0, 255),  # Purple
     (192, 0, 255),  # Violet
-    (255, 0, 255),  # Magenta
-    (255, 0, 192),  # Red-Violet
-    (255, 0, 128)   # Red
+    (130, 0, 255),  # Magenta
+    (160, 0, 255),  # Red-Violet
+    (190, 0, 255)   # Red
 ]
 
 # Define the desired form (in this case, a heart shape)
-heart = [
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 0, 0],
-    [1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 1, 1, 0, 0, 0]
-]
 
 # Function to draw the snake on the Sense HAT
 def draw_snake(x, y, color_index):
@@ -51,18 +41,19 @@ def clear_display():
     sense.clear()
 
 # Main loop
-while True:
+def main(shape, pixel_order):
     # Clear the display
     clear_display()
 
-    # Iterate through the desired form and the color list
+    # Iterate through the pixel order list and the color list
     color_index = 0
-    for y in range(8):
-        for x in range(8):
-            if heart[y][x] == 1:
-                draw_snake(x, y, color_index)
-                color_index = (color_index + 1) % len(colors)
-                sleep(0.1)  # Adjust the speed of the snake
+    for x, y in pixel_order:
+        if shape[y][x] == 1:
+            draw_snake(x, y, color_index)
+            color_index = (color_index + 1) % len(colors)
+            print(color_index)
+            sleep(0.1)  # Adjust the speed of the snake
 
     # Pause before repeating the loop
-    sleep(1)
+
+    # Pause before repeating the loop
