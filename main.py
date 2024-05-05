@@ -1,3 +1,12 @@
+"""
+Draws a snake animation on the Sense HAT display using a predefined set of colors.
+
+The `draw_snake` function sets the pixel at the given coordinates to the color at the specified index in the `colors` list.
+
+The `clear_display` function clears the entire Sense HAT display.
+
+The `main` function is the entry point for the snake animation. It takes a 2D shape array and a list of pixel coordinates as input, and animates the snake by iterating through the pixel coordinates and updating the display with the corresponding colors. The animation includes a fade-out effect at the end.
+"""
 from sense_hat import SenseHat
 from time import sleep
 import time
@@ -64,7 +73,7 @@ def clear_display():
 # Main loop
 def main(shape, pixel_order):
     # Clear the display
-    clear_display()
+    sense.clear()
 
     # Iterate through the pixel order list and the color list
     color_index = 0
@@ -72,16 +81,26 @@ def main(shape, pixel_order):
 
     for x, y in pixel_order:
         if shape[y][x] == 1:
-            draw_snake(x, y, color_index)
+            sense.set_pixel(x, y, colors[color_index])
             active_pixels.append((x, y, color_index))  # Add the pixel and its color index
             color_index = (color_index + 1) % len(colors)
             sleep(0.1)  # Adjust the speed of the snake
 
-    while True:
-        # Update the active pixels with the next color in the sequence
-        for i, (x, y, color_index) in enumerate(active_pixels):
+    # Perform a single cycle of the animation
+    for i in range(len(colors)):
+        for j, (x, y, color_index) in enumerate(active_pixels):
             new_color_index = (color_index + 1) % len(colors)
-            draw_snake(x, y, new_color_index)
-            active_pixels[i] = (x, y, new_color_index)  # Update the color index
-
+            sense.set_pixel(x, y, colors[new_color_index])
+            active_pixels[j] = (x, y, new_color_index)  # Update the color index
         sleep(0.1)  # Small delay to reduce CPU usage
+
+    # Fade out the pixels
+    while active_pixels:
+        for i, (x, y, color_index) in enumerate(active_pixels):
+            new_color_index = (color_index - 1) % len(colors)
+            sense.set_pixel(x, y, colors[new_color_index])
+            active_pixels[i] = (x, y, new_color_index)  # Update the color index
+            if new_color_index == 0:
+                active_pixels.pop(i)  # Remove the pixel from the list if it's black
+        sleep(0.1)  # Small delay to reduce CPU usage
+
