@@ -68,23 +68,20 @@ def main(shape, pixel_order):
 
     # Iterate through the pixel order list and the color list
     color_index = 0
-    active_pixels = []  # List to store active pixels and their start times
+    active_pixels = []  # List to store active pixels and their color indices
 
     for x, y in pixel_order:
         if shape[y][x] == 1:
             draw_snake(x, y, color_index)
-            active_pixels.append((x, y, time.time()))  # Add the pixel and its start time
+            active_pixels.append((x, y, color_index))  # Add the pixel and its color index
             color_index = (color_index + 1) % len(colors)
             sleep(0.1)  # Adjust the speed of the snake
 
-    while active_pixels:
-        # Check for pixels that need to be turned off
-        x, y, start_time = active_pixels[0]  # Get the first pixel in the list
-        if time.time() - start_time >= 0.5:  # If 0.5 seconds have passed
-            sense.set_pixel(x, y, 0, 0, 0)  # Turn off the pixel
-            active_pixels.pop(0)  # Remove the pixel from the list
+    while True:
+        # Update the active pixels with the next color in the sequence
+        for i, (x, y, color_index) in enumerate(active_pixels):
+            new_color_index = (color_index + 1) % len(colors)
+            draw_snake(x, y, new_color_index)
+            active_pixels[i] = (x, y, new_color_index)  # Update the color index
 
         sleep(0.1)  # Small delay to reduce CPU usage
-
-    # Pause before repeating the loop
-
