@@ -1,0 +1,12 @@
+[tool.rainbow]
+name = "Rainbow Sense Hat"
+version = "0.1.0"
+description = "None"
+authors = ["Konkov Viktor <raspberry400@mail.com>"]
+
+[tool.rainbow.dependencies]
+python = "^3.7"
+
+[build-system]
+requires = ["sense_hat>=1.0.0"]
+build-backend = "sense_hat"
