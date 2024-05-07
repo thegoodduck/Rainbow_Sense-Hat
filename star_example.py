@@ -1,5 +1,4 @@
 import main
-import time
 
 # Define the shape as a star
 shape = [
