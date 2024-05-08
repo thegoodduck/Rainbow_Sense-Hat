@@ -14,3 +14,14 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 rainbow = "main:main"  # Assuming main.py contains a function named main
+
+[tool.poetry.publishing]
+description = """
+    Your long description goes here.
+    Make sure it is correctly formatted.
+"""
+
+[tool.poetry.metadata]
+license = "MIT"
+long_description_content_type = "text/plain"  # Update this value based on your long description format
+
