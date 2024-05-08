@@ -1,9 +1,17 @@
-[tool.rainbow]
-name = "Rainbow Sense Hat"
-version = "0.1.0"
-description = "None"
-authors = ["Konkov Viktor <raspberry400@mail.com>"]
+[build-system]
+requires = "python >= 3.8"
 
-[tool.rainbow.dependencies]
-python = "^3.7"
+[project]
+name = "rainbow"
+version = "1.0.0"
 
+[dependencies]
+sense_hat = "^4.1.0"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = "python >= 3.8"
