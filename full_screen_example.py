@@ -1,5 +1,4 @@
 import main
-import time
 
 shape = [
     [1, 1, 1, 1, 1, 1, 1, 1],
